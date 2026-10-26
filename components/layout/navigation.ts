@@ -1,4 +1,4 @@
-import { CheckCircle2, ClipboardList, LayoutDashboard, type LucideIcon } from "lucide-react";
+import { CheckCircle2, ClipboardList, LayoutDashboard, Users, type LucideIcon } from "lucide-react";
 import type { UserRole } from "@/types/auth";
 
 export interface NavItem {
@@ -12,6 +12,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Visão geral", href: "/", icon: LayoutDashboard },
   { label: "Solicitações", href: "/solicitacoes", icon: ClipboardList },
   { label: "Aprovações", href: "/aprovacoes", icon: CheckCircle2, roles: ["admin", "approver"] },
+  { label: "Usuários", href: "/usuarios", icon: Users, roles: ["admin"] },
 ];
 
 export function navItemsFor(role: UserRole | undefined) {

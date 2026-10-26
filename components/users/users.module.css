@@ -1,0 +1,154 @@
+.tableScroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table thead {
+  background: var(--surface-muted);
+}
+
+.table th {
+  padding: 12px 18px;
+  color: #929bad;
+  font-size: 11px;
+  font-weight: 600;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.table td {
+  padding: 13px 18px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.inactiveRow td {
+  opacity: 0.65;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.identity > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.identity strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+}
+
+.identity small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.selfTag {
+  padding: 1px 6px;
+  color: var(--primary-text);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  background: var(--primary-soft);
+  border-radius: 5px;
+}
+
+.roleSelect {
+  min-width: 160px;
+  height: 34px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.roleSelect:hover:not(:disabled) {
+  border-color: var(--primary-border);
+}
+
+.roleSelect:disabled {
+  color: var(--muted);
+  background: var(--surface-muted);
+  cursor: not-allowed;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 7px;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+.active {
+  color: var(--success);
+  background: var(--success-soft);
+}
+
+.inactive {
+  color: var(--muted);
+  background: var(--border-soft);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.actionsCell {
+  text-align: right;
+}
+
+.footer {
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 12px 22px;
+  color: #8993a5;
+  font-size: 11px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.footer strong {
+  color: var(--foreground-soft);
+}
+
+@media (max-width: 760px) {
+  .footer {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 14px 16px;
+  }
+}
