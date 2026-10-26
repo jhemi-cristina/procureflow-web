@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ProcureFlow Web
 
-## Getting Started
+Front-end do **ProcureFlow**, um sistema de gestão de solicitações de compra com fluxo de aprovação. Consome a [ProcureFlow API](../procureflow-api) (NestJS + PostgreSQL + JWT).
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Login com JWT, sessão com expiração automática e logout em respostas `401`
+- Dashboard com indicadores, gráfico mensal e solicitações pendentes calculados a partir dos dados reais
+- Listagem de solicitações com busca, filtro por status e paginação
+- Criar e editar rascunhos, enviar para aprovação
+- Aprovar/rejeitar com justificativa (perfis `admin` e `approver`)
+- Layout responsivo com menu lateral para mobile
+
+## Stack
+
+- **Next.js 16** (App Router, Turbopack, route groups)
+- **React 19** (`use`, `useSyncExternalStore`, `useDeferredValue`)
+- **TanStack Query** para cache, sincronização e mutações
+- **React Hook Form + Zod** para formulários e validação
+- **CSS Modules** com design tokens globais
+- **TypeScript** estrito
+
+## Estrutura
+
+```
+app/
+  (dashboard)/          # rotas autenticadas (layout com RequireAuth + AppShell)
+    page.tsx            # /            → visão geral
+    solicitacoes/       # /solicitacoes → listagem
+  login/                # /login
+  providers.tsx         # QueryClient, Auth e Toast providers
+components/
+  ui/                   # componentes genéricos (Button, Modal, TextField, Panel...)
+  layout/               # AppShell, Sidebar, Topbar
+  auth/                 # tela de login e guards de rota
+  dashboard/            # cards, gráfico e painéis da visão geral
+  purchase-requests/    # tabela, ações e diálogos de solicitações
+contexts/               # AuthContext, ToastContext, RequestDialogsContext
+hooks/                  # useAuth, usePurchaseRequests, usePagination, useRequestStats...
+lib/
+  api/                  # cliente HTTP e serviços por recurso
+  auth/                 # store da sessão (sessionStorage)
+types/                  # contratos da API
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Como rodar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Suba a API (porta `3000`, que libera CORS para `http://localhost:3001`).
+2. Configure o front:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   cp .env.example .env.local
+   npm install
+   npm run dev
+   ```
 
-## Learn More
+3. Acesse [http://localhost:3001](http://localhost:3001).
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Script          | Descrição                          |
+| --------------- | ---------------------------------- |
+| `npm run dev`   | Servidor de desenvolvimento (3001) |
+| `npm run build` | Build de produção                  |
+| `npm run start` | Servidor de produção (3001)        |
+| `npm run lint`  | ESLint                             |
