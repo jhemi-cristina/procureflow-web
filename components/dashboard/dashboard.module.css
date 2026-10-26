@@ -1,0 +1,305 @@
+/* Indicadores */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.metricCard {
+  min-width: 0;
+  padding: 19px 18px 17px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.metricIcon {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  place-items: center;
+  border-radius: 11px;
+}
+
+.violet {
+  color: #6457e8;
+  background: #eeecff;
+}
+
+.amber {
+  color: #d58b18;
+  background: #fff5df;
+}
+
+.green {
+  color: var(--success);
+  background: #e4f8ee;
+}
+
+.blue {
+  color: var(--info);
+  background: var(--info-soft);
+}
+
+.metricTitle {
+  margin: 16px 0 6px;
+  color: #7d889b;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.metricValue {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: clamp(22px, 1.9vw, 28px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+.metricFootnote {
+  margin: 10px 0 0;
+  color: #929bad;
+  font-size: 11px;
+}
+
+/* Grid de visão geral */
+.overviewGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(310px, 1fr);
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+/* Gráfico */
+.chartPanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.legend {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  color: #7f899c;
+  font-size: 11px;
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legendCreated {
+  background: #6558e8;
+}
+
+.legendApproved {
+  background: #7bd4ae;
+}
+
+.chart {
+  display: flex;
+  height: 230px;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 18px;
+  background-image: linear-gradient(#edf0f5 1px, transparent 1px);
+  background-size: 100% 25%;
+}
+
+.chartGroup {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chartBars {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  border-bottom: 1px solid var(--border);
+}
+
+.chartBars span {
+  position: relative;
+  width: min(26px, 40%);
+  min-height: 3px;
+  border-radius: 6px 6px 0 0;
+  transition: height 0.4s ease;
+}
+
+.chartBars em {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  color: var(--foreground-soft);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  transform: translateX(-50%);
+}
+
+.barCreated {
+  background: linear-gradient(180deg, #8077f3, #6558e8);
+}
+
+.barApproved {
+  background: linear-gradient(180deg, #9ce0c2, #5cc79a);
+}
+
+.chartLabel {
+  color: #9ba4b3;
+  font-size: 11px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+/* Pendentes */
+.approvalsPanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.pendingCount {
+  display: grid;
+  min-width: 27px;
+  height: 27px;
+  place-items: center;
+  padding: 0 7px;
+  color: #d97706;
+  font-size: 12px;
+  font-weight: 700;
+  background: #fff4df;
+  border-radius: var(--radius-sm);
+}
+
+.approvalList {
+  flex: 1;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.approvalList li + li {
+  border-top: 1px solid var(--border-soft);
+}
+
+.approvalList button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 4px;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+}
+
+.approvalList button:hover {
+  background: var(--primary-softer);
+}
+
+.approvalCopy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.approvalCopy strong,
+.approvalCopy span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.approvalCopy strong {
+  font-size: 12px;
+}
+
+.approvalCopy span {
+  color: #919bad;
+  font-size: 11px;
+}
+
+.approvalAmount {
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+.textLink {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.textLink:hover {
+  color: #3429c5;
+}
+
+@media (max-width: 1400px) {
+  .metricsGrid {
+    gap: 12px;
+  }
+
+  .overviewGrid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(290px, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .metricsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .overviewGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .metricsGrid {
+    gap: 11px;
+  }
+
+  .metricCard {
+    padding: 15px 13px;
+  }
+
+  .metricValue {
+    font-size: clamp(19px, 5.5vw, 24px);
+  }
+
+  .chart {
+    height: 190px;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+}
