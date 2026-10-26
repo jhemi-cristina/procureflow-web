@@ -1,25 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { ArrowUpRight, CircleCheck, ClipboardList, Clock3, Plus, Wallet } from "lucide-react";
+import { CircleCheck, ClipboardList, Clock3, Plus, Wallet } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { usePurchaseRequests } from "@/hooks/use-purchase-requests";
 import { useRequestDialogs } from "@/hooks/use-request-dialogs";
 import { useRequestStats } from "@/hooks/use-request-stats";
 import { getErrorMessage } from "@/lib/api/client";
 import { formatCurrency, getFirstName } from "@/lib/format";
-import { Button, buttonClassName } from "@/components/ui/button";
-import { EmptyState, ErrorState, LoadingState } from "@/components/ui/feedback";
+import { Button } from "@/components/ui/button";
+import { ErrorState, LoadingState } from "@/components/ui/feedback";
 import { PageHeader } from "@/components/ui/page-header";
-import { Panel, PanelHeader } from "@/components/ui/panel";
-import { RequestsTable } from "@/components/purchase-requests/requests-table";
+import { Panel } from "@/components/ui/panel";
 import { MetricCard } from "./metric-card";
 import { PendingApprovals } from "./pending-approvals";
+import { RecentRequests } from "./recent-requests";
 import { RequestsChart } from "./requests-chart";
 import styles from "./dashboard.module.css";
-
-const RECENT_LIMIT = 5;
 
 const weekdayFormatter = new Intl.DateTimeFormat("pt-BR", {
   weekday: "long",
@@ -42,7 +39,6 @@ export function DashboardView() {
   const { user } = useAuth();
   const { openCreate } = useRequestDialogs();
   const { data: requests = [], isPending, isError, error, refetch } = usePurchaseRequests();
-  // Data fixada na montagem: mantém o render puro e consistente entre re-renders.
   const [now] = useState(() => new Date());
   const stats = useRequestStats(requests, now);
 
@@ -106,33 +102,7 @@ export function DashboardView() {
             <PendingApprovals requests={requests} />
           </section>
 
-          <Panel flush>
-            <PanelHeader
-              title="Solicitações recentes"
-              description="As últimas solicitações de compra criadas."
-              action={
-                <Link
-                  href="/solicitacoes"
-                  className={buttonClassName({ variant: "secondary", size: "sm" })}
-                >
-                  Ver todas <ArrowUpRight size={15} />
-                </Link>
-              }
-            />
-            {requests.length === 0 ? (
-              <EmptyState
-                title="Nenhuma solicitação ainda"
-                description="Crie sua primeira solicitação de compra para começar."
-                action={
-                  <Button size="sm" onClick={openCreate}>
-                    <Plus size={15} /> Nova solicitação
-                  </Button>
-                }
-              />
-            ) : (
-              <RequestsTable requests={requests.slice(0, RECENT_LIMIT)} />
-            )}
-          </Panel>
+          <RecentRequests requests={requests} />
         </>
       )}
     </>

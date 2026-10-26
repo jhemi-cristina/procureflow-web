@@ -6,7 +6,7 @@ import { LogOut, ShoppingCart, X } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { ROLE_LABELS } from "@/lib/purchase-requests";
 import { Avatar } from "@/components/ui/avatar";
-import { findNavItem, NAV_ITEMS } from "./navigation";
+import { findNavItem, navItemsFor } from "./navigation";
 import styles from "./sidebar.module.css";
 
 interface SidebarProps {
@@ -36,7 +36,7 @@ export function Sidebar({ open, onNavigate }: SidebarProps) {
 
       <p className={styles.sectionLabel}>MENU PRINCIPAL</p>
       <nav className={styles.nav} aria-label="Navegação principal">
-        {NAV_ITEMS.map(({ label, href, icon: Icon }) => {
+        {navItemsFor(user?.role).map(({ label, href, icon: Icon }) => {
           const isActive = activeItem?.href === href;
           return (
             <Link

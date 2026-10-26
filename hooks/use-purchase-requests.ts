@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { purchaseRequestsApi } from "@/lib/api/purchase-requests";
+import { canDecide } from "@/lib/purchase-requests";
 import type {
   DecidePurchaseRequestInput,
   PurchaseRequestInput,
@@ -8,6 +9,9 @@ import { useAuth } from "./use-auth";
 
 export const purchaseRequestKeys = {
   all: ["purchase-requests"] as const,
+  mine: ["purchase-requests", "mine"] as const,
+  approvals: ["purchase-requests", "approvals"] as const,
+  recent: (limit: number) => ["purchase-requests", "recent", limit] as const,
 };
 
 function useAuthToken() {
@@ -20,7 +24,6 @@ function requireToken(token: string | null) {
   return token;
 }
 
-/** Invalida a lista após qualquer mutação para manter os dados sincronizados com a API. */
 function useInvalidateRequests() {
   const queryClient = useQueryClient();
   return () => queryClient.invalidateQueries({ queryKey: purchaseRequestKeys.all });
@@ -30,9 +33,29 @@ export function usePurchaseRequests() {
   const token = useAuthToken();
 
   return useQuery({
-    queryKey: purchaseRequestKeys.all,
+    queryKey: purchaseRequestKeys.mine,
     queryFn: () => purchaseRequestsApi.list(requireToken(token)),
     enabled: Boolean(token),
+  });
+}
+
+export function useApprovalQueue() {
+  const { token, user } = useAuth();
+
+  return useQuery({
+    queryKey: purchaseRequestKeys.approvals,
+    queryFn: () => purchaseRequestsApi.approvals(requireToken(token)),
+    enabled: Boolean(token) && canDecide(user?.role),
+  });
+}
+
+export function useTeamRecentRequests(limit: number) {
+  const { token, user } = useAuth();
+
+  return useQuery({
+    queryKey: purchaseRequestKeys.recent(limit),
+    queryFn: () => purchaseRequestsApi.recent(requireToken(token), limit),
+    enabled: Boolean(token) && canDecide(user?.role),
   });
 }
 
