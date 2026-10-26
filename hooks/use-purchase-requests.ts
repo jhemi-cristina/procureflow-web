@@ -11,6 +11,7 @@ export const purchaseRequestKeys = {
   all: ["purchase-requests"] as const,
   mine: ["purchase-requests", "mine"] as const,
   approvals: ["purchase-requests", "approvals"] as const,
+  team: ["purchase-requests", "team"] as const,
   recent: (limit: number) => ["purchase-requests", "recent", limit] as const,
 };
 
@@ -45,6 +46,16 @@ export function useApprovalQueue() {
   return useQuery({
     queryKey: purchaseRequestKeys.approvals,
     queryFn: () => purchaseRequestsApi.approvals(requireToken(token)),
+    enabled: Boolean(token) && canDecide(user?.role),
+  });
+}
+
+export function useTeamRequests() {
+  const { token, user } = useAuth();
+
+  return useQuery({
+    queryKey: purchaseRequestKeys.team,
+    queryFn: () => purchaseRequestsApi.team(requireToken(token)),
     enabled: Boolean(token) && canDecide(user?.role),
   });
 }

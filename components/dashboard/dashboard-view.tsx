@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { CircleCheck, ClipboardList, Clock3, Plus, Wallet } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
-import { usePurchaseRequests } from "@/hooks/use-purchase-requests";
+import { usePurchaseRequests, useTeamRequests } from "@/hooks/use-purchase-requests";
 import { useRequestDialogs } from "@/hooks/use-request-dialogs";
 import { useRequestStats } from "@/hooks/use-request-stats";
 import { getErrorMessage } from "@/lib/api/client";
 import { formatCurrency, getFirstName } from "@/lib/format";
+import { canDecide } from "@/lib/purchase-requests";
 import { Button } from "@/components/ui/button";
 import { ErrorState, LoadingState } from "@/components/ui/feedback";
 import { PageHeader } from "@/components/ui/page-header";
@@ -38,16 +39,25 @@ function pluralize(count: number, singular: string, plural: string) {
 export function DashboardView() {
   const { user } = useAuth();
   const { openCreate } = useRequestDialogs();
-  const { data: requests = [], isPending, isError, error, refetch } = usePurchaseRequests();
+  const isApprover = canDecide(user?.role);
+  const mine = usePurchaseRequests();
+  const team = useTeamRequests();
+  const { data: requests = [], isPending, isError, error, refetch } = isApprover ? team : mine;
+  const myRequests = mine.data ?? [];
   const [now] = useState(() => new Date());
   const stats = useRequestStats(requests, now);
+  const people = new Set(requests.map((request) => request.requester.id)).size;
 
   return (
     <>
       <PageHeader
         eyebrow={weekdayFormatter.format(now)}
         title={`${greetingFor(now)}, ${getFirstName(user?.name ?? "")}`}
-        description="Aqui está o resumo das suas solicitações de compra."
+        description={
+          isApprover
+            ? "Aqui está o resumo das solicitações de compra de toda a equipe."
+            : "Aqui está o resumo das suas solicitações de compra."
+        }
         actions={
           <Button onClick={openCreate}>
             <Plus size={18} strokeWidth={2.4} />
@@ -70,7 +80,11 @@ export function DashboardView() {
             <MetricCard
               title="Total de solicitações"
               value={String(stats.total)}
-              footnote={pluralize(stats.drafts, "rascunho em aberto", "rascunhos em aberto")}
+              footnote={
+                isApprover
+                  ? `Enviadas por ${pluralize(people, "pessoa", "pessoas")}`
+                  : pluralize(stats.drafts, "rascunho em aberto", "rascunhos em aberto")
+              }
               icon={ClipboardList}
               tone="violet"
             />
@@ -99,10 +113,10 @@ export function DashboardView() {
 
           <section className={styles.overviewGrid}>
             <RequestsChart data={stats.monthly} />
-            <PendingApprovals requests={requests} />
+            <PendingApprovals requests={myRequests} />
           </section>
 
-          <RecentRequests requests={requests} />
+          <RecentRequests requests={myRequests} />
         </>
       )}
     </>
