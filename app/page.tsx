@@ -17,7 +17,6 @@ import {
   ArrowDownRight,
   Clock3,
   CircleCheck,
-  CircleX,
   ChevronDown,
   Menu,
   X,
