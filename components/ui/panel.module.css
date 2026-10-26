@@ -1,0 +1,54 @@
+.panel {
+  min-width: 0;
+  padding: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Painel sem padding lateral (para tabelas que vão de borda a borda). */
+.flush {
+  padding: 22px 0 0;
+  overflow: hidden;
+}
+
+.flush .header {
+  padding: 0 22px 20px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.header h2 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.25px;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .panel {
+    padding: 16px;
+  }
+
+  .flush {
+    padding: 17px 0 0;
+  }
+
+  .flush .header {
+    padding: 0 16px 16px;
+  }
+}

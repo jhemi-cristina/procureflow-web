@@ -1,0 +1,57 @@
+.spinnerWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.spinner {
+  color: var(--primary);
+  animation: spin 0.9s linear infinite;
+}
+
+.fullPage {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+}
+
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 36px 20px;
+  text-align: center;
+}
+
+.state strong {
+  font-family: var(--font-heading);
+  font-size: 14px;
+}
+
+.state p {
+  max-width: 360px;
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.stateIcon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 4px;
+  place-items: center;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border-radius: 13px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
