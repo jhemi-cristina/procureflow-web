@@ -62,6 +62,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [signIn],
   );
 
+  const token = session?.token;
+
+  useEffect(() => {
+    if (!token) return;
+    let active = true;
+
+    authApi
+      .getProfile(token)
+      .then((profile) => {
+        const current = sessionStore.getSnapshot()?.user;
+        const changed =
+          !current ||
+          current.name !== profile.name ||
+          current.email !== profile.email ||
+          current.role !== profile.role;
+        if (active && changed) {
+          sessionStore.save(token, profile);
+          void queryClient.invalidateQueries();
+        }
+      })
+      .catch(() => undefined);
+
+    return () => {
+      active = false;
+    };
+  }, [token, queryClient]);
+
   useEffect(() => {
     setUnauthorizedHandler(signOut);
     return () => setUnauthorizedHandler(null);
