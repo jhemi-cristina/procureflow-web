@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/*
- * Estilos globais: apenas tokens de design e reset.
- * Os estilos de cada componente ficam em CSS Modules ao lado do componente.
- */
 :root {
   --background: #f7f8fa;
   --foreground: #172033;

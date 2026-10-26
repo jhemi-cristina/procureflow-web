@@ -14,7 +14,6 @@ function useRedirectWhen(status: AuthStatus, target: AuthStatus, href: string) {
   }, [status, target, href, router]);
 }
 
-/** Renderiza o conteúdo apenas para usuários autenticados; senão, redireciona ao login. */
 export function RequireAuth({ children }: { children: ReactNode }) {
   const { status } = useAuth();
   useRedirectWhen(status, "unauthenticated", "/login");
@@ -26,7 +25,6 @@ export function RequireAuth({ children }: { children: ReactNode }) {
   return children;
 }
 
-/** Usado em telas públicas (login): quem já está autenticado vai direto ao dashboard. */
 export function GuestOnly({ children }: { children: ReactNode }) {
   const { status } = useAuth();
   useRedirectWhen(status, "authenticated", "/");

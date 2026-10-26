@@ -7,7 +7,6 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-/** Retorna as páginas visíveis, com reticências quando há muitas páginas. */
 function visiblePages(page: number, pageCount: number): (number | "ellipsis")[] {
   if (pageCount <= 7) return Array.from({ length: pageCount }, (_, index) => index + 1);
 

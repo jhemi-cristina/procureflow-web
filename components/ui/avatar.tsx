@@ -3,7 +3,6 @@ import styles from "./avatar.module.css";
 
 const TONES = ["purple", "blue", "pink", "orange", "green"] as const;
 
-/** Escolhe uma cor estável a partir do nome, para o mesmo usuário ter sempre a mesma cor. */
 function toneFor(name: string) {
   const hash = [...name].reduce((total, char) => total + char.charCodeAt(0), 0);
   return TONES[hash % TONES.length];

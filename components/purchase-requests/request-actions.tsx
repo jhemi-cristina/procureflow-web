@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import type { PurchaseRequest } from "@/types/purchase-request";
 import styles from "./purchase-requests.module.css";
 
-/** Ações disponíveis conforme o status da solicitação e o perfil do usuário. */
 export function RequestActions({ request }: { request: PurchaseRequest }) {
   const { user } = useAuth();
   const toast = useToast();

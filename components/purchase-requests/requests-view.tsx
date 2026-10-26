@@ -44,7 +44,6 @@ export function RequestsView() {
   const { openCreate } = useRequestDialogs();
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<StatusFilter>("all");
-  // Mantém a digitação fluida mesmo com listas grandes.
   const deferredSearch = useDeferredValue(search);
 
   const filtered = useMemo(

@@ -4,7 +4,6 @@ export function usePagination<T>(items: T[], pageSize: number) {
   const [requestedPage, setPage] = useState(1);
 
   const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
-  // A página é derivada e limitada ao total, evitando efeitos para "corrigir" o estado.
   const page = Math.min(requestedPage, pageCount);
   const start = (page - 1) * pageSize;
 

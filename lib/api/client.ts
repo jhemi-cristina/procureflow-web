@@ -20,7 +20,6 @@ type UnauthorizedHandler = () => void;
 
 let unauthorizedHandler: UnauthorizedHandler | null = null;
 
-/** Registra um callback disparado quando uma requisição autenticada retorna 401. */
 export function setUnauthorizedHandler(handler: UnauthorizedHandler | null) {
   unauthorizedHandler = handler;
 }

@@ -14,7 +14,6 @@ interface ModalProps {
   size?: "sm" | "md";
 }
 
-/** Modal acessível baseado no elemento nativo `<dialog>` (foco, Esc e backdrop inclusos). */
 export function Modal({ open, onClose, title, description, children, footer, size = "md" }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
@@ -37,7 +36,6 @@ export function Modal({ open, onClose, title, description, children, footer, siz
         onClose();
       }}
       onClick={(event) => {
-        // Clique no backdrop (fora do conteúdo) fecha o modal.
         if (event.target === event.currentTarget) onClose();
       }}
     >

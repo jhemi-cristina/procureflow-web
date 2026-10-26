@@ -7,7 +7,6 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* Painel sem padding lateral (para tabelas que vão de borda a borda). */
 .flush {
   padding: 22px 0 0;
   overflow: hidden;

@@ -21,10 +21,6 @@ export interface RequestDialogsContextValue {
 
 export const RequestDialogsContext = createContext<RequestDialogsContextValue | null>(null);
 
-/**
- * Centraliza os diálogos de solicitações para que qualquer tela (dashboard, listagem)
- * possa abri-los sem duplicar estado. Cada diálogo só é montado enquanto está aberto.
- */
 export function RequestDialogsProvider({ children }: { children: ReactNode }) {
   const [dialog, setDialog] = useState<DialogState>(null);
   const close = () => setDialog(null);

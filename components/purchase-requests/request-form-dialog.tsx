@@ -17,7 +17,6 @@ import { TextAreaField, TextField } from "@/components/ui/text-field";
 import type { PurchaseRequest } from "@/types/purchase-request";
 import styles from "./purchase-requests.module.css";
 
-// Aceita "1250", "1250,50", "1.250,50" ou "1250.50".
 const AMOUNT_PATTERN = /^(\d{1,3}(\.\d{3})+|\d+)(,\d{1,2})?$|^\d+(\.\d{1,2})?$/;
 
 const requestSchema = z.object({
@@ -39,7 +38,6 @@ type RequestFormValues = z.infer<typeof requestSchema>;
 
 interface RequestFormDialogProps {
   onClose: () => void;
-  /** Quando informado, o formulário edita o rascunho em vez de criar um novo. */
   request?: PurchaseRequest | null;
 }
 

@@ -12,7 +12,6 @@ interface BaseFieldProps {
   error?: string;
   hint?: string;
   icon?: ReactNode;
-  /** Conteúdo à direita do input, como um botão de mostrar senha. */
   trailing?: ReactNode;
   size?: "md" | "lg";
 }

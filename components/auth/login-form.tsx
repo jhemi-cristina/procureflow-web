@@ -33,7 +33,6 @@ export function LoginForm() {
 
   const onSubmit = handleSubmit(async (values) => {
     try {
-      // O redirecionamento acontece no <GuestOnly> assim que a sessão é salva.
       await signIn(values);
     } catch (error) {
       setError("root", {

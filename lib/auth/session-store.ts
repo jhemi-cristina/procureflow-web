@@ -42,10 +42,6 @@ function notify() {
   window.dispatchEvent(new Event(CHANGE_EVENT));
 }
 
-/**
- * Store externo compatível com `useSyncExternalStore`. O snapshot é memorizado
- * pela string bruta do storage para manter a referência estável entre renders.
- */
 export const sessionStore = {
   subscribe(onChange: () => void) {
     window.addEventListener(CHANGE_EVENT, onChange);
