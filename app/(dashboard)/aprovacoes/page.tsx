@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ApprovalsView } from "@/components/purchase-requests/approvals-view";
 
+export const instant = false;
+
 export const metadata: Metadata = {
   title: "Aprovações",
 };

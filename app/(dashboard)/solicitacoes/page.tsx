@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { RequestsView } from "@/components/purchase-requests/requests-view";
 
+export const instant = false;
+
 export const metadata: Metadata = {
   title: "Solicitações",
 };
